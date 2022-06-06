@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -27,5 +28,18 @@ public final class Constants {
 
         public static final int pidgeonID = 0;
 
+        public static final double ks_Volts = 0.65288;
+        public static final double kv_VoltSecondsPerMeters = 2.5016;
+        public static final double ka_VoltSecondsSquaredPerMeters = 0.38331;
+        public static final double trackWidth_Meters = 0.7036911491;
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+            trackWidth_Meters);
+
+            public static final double kPDriveVel = 2.9025 * 2;
+    }
+
+    public static final class AutoConstants {
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
     }
 }

@@ -24,10 +24,10 @@ import frc.robot.Constants.DrivetrainConstants;
  */
 public class DrivetrainSubsystem extends SubsystemBase {
 
-    private WPI_TalonFX mFrontLeftMoter;
-    private WPI_TalonFX mBackLeftMoter;
-    private WPI_TalonFX mFrontRightMoter;
-    private WPI_TalonFX mBackRightMoter;
+    private WPI_TalonFX mFrontLeftMotor;
+    private WPI_TalonFX mBackLeftMotor;
+    private WPI_TalonFX mFrontRightMotor;
+    private WPI_TalonFX mBackRightMotor;
 
     private MotorControllerGroup mLeftMotorControllerGroup;
     private MotorControllerGroup mRightMotorControllerGroup;
@@ -38,13 +38,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     private WPI_PigeonIMU mPigeonIMU;
 
+    private final DifferentialDriveOdometry m_odometry;
+
 
     public DrivetrainSubsystem() {
-        mFrontLeftMoter = new WPI_TalonFX(DrivetrainConstants.frontLeftMoterID);
-        mBackLeftMoter = new WPI_TalonFX(DrivetrainConstants.backLeftMoterID);
+        mFrontLeftMotor = new WPI_TalonFX(DrivetrainConstants.frontLeftMoterID);
+        mBackLeftMotor = new WPI_TalonFX(DrivetrainConstants.backLeftMoterID);
 
-        mFrontRightMoter = new WPI_TalonFX(DrivetrainConstants.frontRightMoterID);
-        mBackRightMoter = new WPI_TalonFX(DrivetrainConstants.backRightMoterID);
+        mFrontRightMotor = new WPI_TalonFX(DrivetrainConstants.frontRightMoterID);
+        mBackRightMotor = new WPI_TalonFX(DrivetrainConstants.backRightMoterID);
 
         TalonFXConfiguration motorConfig = new TalonFXConfiguration();
         motorConfig.supplyCurrLimit = new SupplyCurrentLimitConfiguration(true, 35, 40, 0.2);
@@ -54,22 +56,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
         motorConfig.remoteFilter1.remoteSensorSource = RemoteSensorSource.CANCoder;
         motorConfig.remoteFilter1.remoteSensorDeviceID = DrivetrainConstants.rightEncoderID;
 
-        mFrontLeftMoter.configFactoryDefault();
-        mFrontLeftMoter.configAllSettings(motorConfig);
+        mFrontLeftMotor.configFactoryDefault();
+        mFrontLeftMotor.configAllSettings(motorConfig);
 
-        mBackLeftMoter.configFactoryDefault();
-        mBackLeftMoter.configAllSettings(motorConfig);
+        mBackLeftMotor.configFactoryDefault();
+        mBackLeftMotor.configAllSettings(motorConfig);
 
-        mFrontRightMoter.configFactoryDefault();
-        mFrontRightMoter.configAllSettings(motorConfig);
-        mFrontLeftMoter.setInverted(true);
+        mFrontRightMotor.configFactoryDefault();
+        mFrontRightMotor.configAllSettings(motorConfig);
+        mFrontLeftMotor.setInverted(true);
 
-        mBackRightMoter.configFactoryDefault();
-        mBackRightMoter.configAllSettings(motorConfig);
-        mBackLeftMoter.setInverted(true);
+        mBackRightMotor.configFactoryDefault();
+        mBackRightMotor.configAllSettings(motorConfig);
+        mBackLeftMotor.setInverted(true);
 
-        mLeftMotorControllerGroup = new MotorControllerGroup(mFrontLeftMoter, mBackLeftMoter);
-        mRightMotorControllerGroup = new MotorControllerGroup(mFrontRightMoter, mBackRightMoter);
+        mLeftMotorControllerGroup = new MotorControllerGroup(mFrontLeftMotor, mBackLeftMotor);
+        mRightMotorControllerGroup = new MotorControllerGroup(mFrontRightMotor, mBackRightMotor);
 
         mDifferentialDrive = new DifferentialDrive(mLeftMotorControllerGroup, mRightMotorControllerGroup);
 
@@ -94,10 +96,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         mPigeonIMU = new WPI_PigeonIMU(DrivetrainConstants.pidgeonID);
         mPigeonIMU.setFusedHeading(0);
+
+        m_odometry = new DifferentialDriveOdometry(getRotation2d());
     }
 
     @Override
     public void periodic() {
+        m_odometry.update(getRotation2d(), getLeftEncoderDistance(), getRightEncoderDistance());
     }
 
     /**
@@ -114,6 +119,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
      */
     public double getRightEncoderDistance() {
         return mRightEncoder.getPosition();
+    }
+
+    /**
+     * Returns the current speed the left encoder is traveling in meters/second.
+     * @return The current speed the left encoder is traveling in meters/second.
+     */
+    public double getLeftEncoderVelocity() {
+        return mLeftEncoder.getVelocity();
+    }
+
+    /**
+     * Returns the current speed the right encoder is traveling in meters/second.
+     * @return The current speed the right encoder is traveling in meters/second.
+     */
+    public double getRightEncoderVelocity() {
+        return mRightEncoder.getVelocity();
     }
 
     /**
@@ -144,5 +165,29 @@ public class DrivetrainSubsystem extends SubsystemBase {
     /** Zeroes the heading of the robot. */
     public void zeroHeading() {
         mPigeonIMU.setFusedHeading(0);
+    }
+
+    public Rotation2d getRotation2d() {
+        // Both angles CCW positive
+        return Rotation2d.fromDegrees(mPigeonIMU.getFusedHeading());
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        resetEncoders();
+        m_odometry.resetPosition(pose, getRotation2d());
+    }
+
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
+        mLeftMotorControllerGroup.setVoltage(leftVolts);
+        mRightMotorControllerGroup.setVoltage(rightVolts);
+        mDifferentialDrive.feed();
+    }
+    
+    public Pose2d getPose() {
+        return m_odometry.getPoseMeters();
+    }
+    
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
     }
 }
