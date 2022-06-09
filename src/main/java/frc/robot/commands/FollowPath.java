@@ -1,34 +1,34 @@
 package frc.robot.commands;
 
-import java.nio.file.Path;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.RamseteController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+// import java.nio.file.Path;
+// import edu.wpi.first.math.trajectory.Trajectory;
+// import edu.wpi.first.math.trajectory.TrajectoryUtil;
+// import edu.wpi.first.wpilibj2.command.CommandBase;
+// import edu.wpi.first.wpilibj2.command.CommandScheduler;
+// import edu.wpi.first.wpilibj2.command.RamseteCommand;
+// import frc.robot.Constants.AutoConstants;
+// import frc.robot.Constants.DrivetrainConstants;
+// import frc.robot.subsystems.DrivetrainSubsystem;
+// import edu.wpi.first.math.controller.PIDController;
+// import edu.wpi.first.math.controller.RamseteController;
+// import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 
-public class FollowPath extends CommandBase {
+// public class FollowPath extends CommandBase {
 
-    private final Trajectory m_trajectory;
+    // private final Trajectory m_trajectory;
 
-    private final DrivetrainSubsystem m_drivetrainSubsystem;
+    // private final DrivetrainSubsystem m_drivetrainSubsystem;
     
-    private RamseteCommand command;
+    // private RamseteCommand command;
 
     // Reset odometry to the starting pose of the trajectory.
 
-    public FollowPath(DrivetrainSubsystem drivetrainSubsystem, Trajectory trajectory) {
+    /* public FollowPath(DrivetrainSubsystem drivetrainSubsystem, Trajectory trajectory) {
         m_trajectory = trajectory;
         m_drivetrainSubsystem = drivetrainSubsystem;
-    }
+    } */
 
-    public FollowPath(DrivetrainSubsystem drivetrain, Path pathweaverJSON) {
+    /* public FollowPath(DrivetrainSubsystem drivetrain, Path pathweaverJSON) {
         m_drivetrainSubsystem = drivetrain;
         Trajectory trajectory;
         try {
@@ -38,9 +38,9 @@ public class FollowPath extends CommandBase {
             trajectory = null;
         }
         m_trajectory = trajectory;
-    }
+    } */
 
-    @Override
+    /* @Override
     public void initialize() {
         m_drivetrainSubsystem.setBrakeMode(true);
         command = null;
@@ -60,18 +60,18 @@ public class FollowPath extends CommandBase {
             m_drivetrainSubsystem::tankDriveVolts,
             m_drivetrainSubsystem);
         CommandScheduler.getInstance().schedule(command);
-    }
+    } */
 
-    @Override
+    /* @Override
     public void end(boolean interrupted) {
         if (interrupted) {
             m_drivetrainSubsystem.tankDriveVolts(0.0, 0.0);
         }
         m_drivetrainSubsystem.setBrakeMode(false);
-    }
+    } */
 
-    @Override
+    /* @Override
     public boolean isFinished() {
         return command.isFinished();
-    }
-}
+    } */
+// }
