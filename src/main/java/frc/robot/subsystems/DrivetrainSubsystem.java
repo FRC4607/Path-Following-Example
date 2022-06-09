@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
@@ -58,17 +59,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         mFrontLeftMotor.configFactoryDefault();
         mFrontLeftMotor.configAllSettings(motorConfig);
+        mFrontLeftMotor.setInverted(false);
 
         mBackLeftMotor.configFactoryDefault();
         mBackLeftMotor.configAllSettings(motorConfig);
+        mBackLeftMotor.setInverted(false);
 
         mFrontRightMotor.configFactoryDefault();
         mFrontRightMotor.configAllSettings(motorConfig);
-        mFrontLeftMotor.setInverted(true);
+        mFrontRightMotor.setInverted(true);
 
         mBackRightMotor.configFactoryDefault();
         mBackRightMotor.configAllSettings(motorConfig);
-        mBackLeftMotor.setInverted(true);
+        mBackRightMotor.setInverted(true);
+        
 
         mLeftMotorControllerGroup = new MotorControllerGroup(mFrontLeftMotor, mBackLeftMotor);
         mRightMotorControllerGroup = new MotorControllerGroup(mFrontRightMotor, mBackRightMotor);
@@ -189,5 +193,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
     
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
+    }
+
+    public void setBrakeMode(boolean enabled) {
+        if (enabled) {
+            mFrontLeftMotor.setNeutralMode(NeutralMode.Brake);
+            mFrontRightMotor.setNeutralMode(NeutralMode.Brake);
+            mBackLeftMotor.setNeutralMode(NeutralMode.Brake);
+            mBackRightMotor.setNeutralMode(NeutralMode.Brake);
+        }
+        else {
+            mFrontLeftMotor.setNeutralMode(NeutralMode.Coast);
+            mFrontRightMotor.setNeutralMode(NeutralMode.Coast);
+            mBackLeftMotor.setNeutralMode(NeutralMode.Coast);
+            mBackRightMotor.setNeutralMode(NeutralMode.Coast);
+        }
     }
 }

@@ -18,15 +18,15 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
     public static final class DrivetrainConstants {
         public static final int frontLeftMoterID = 0;
-        public static final int backLeftMoterID = 0;
-        public static final int frontRightMoterID = 0;
-        public static final int backRightMoterID = 0;
+        public static final int backLeftMoterID = 1;
+        public static final int frontRightMoterID = 3;
+        public static final int backRightMoterID = 4;
         
-        public static final int leftEncoderID = 0;
-        public static final int rightEncoderID = 0;
+        public static final int leftEncoderID = 2;
+        public static final int rightEncoderID = 5;
         public static final double sensorCoefficient = (Math.PI * Units.inchesToMeters(6)) / 4096;
 
-        public static final int pidgeonID = 0;
+        public static final int pidgeonID = 6;
 
         public static final double ks_Volts = 0.65288;
         public static final double kv_VoltSecondsPerMeters = 2.5016;
@@ -41,7 +41,7 @@ public final class Constants {
     public static final class AutoConstants {
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
+        public static final double kMaxSpeedMetersPerSecond = 1;
+        public static final double kMaxAccelerationMetersPerSecondSquared = .5;
     }
 }

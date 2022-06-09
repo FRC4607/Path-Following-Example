@@ -42,6 +42,7 @@ public class FollowPath extends CommandBase {
 
     @Override
     public void initialize() {
+        m_drivetrainSubsystem.setBrakeMode(true);
         command = null;
         m_drivetrainSubsystem.resetOdometry(m_trajectory.getInitialPose());
         command = new RamseteCommand(
@@ -66,6 +67,7 @@ public class FollowPath extends CommandBase {
         if (interrupted) {
             m_drivetrainSubsystem.tankDriveVolts(0.0, 0.0);
         }
+        m_drivetrainSubsystem.setBrakeMode(false);
     }
 
     @Override
