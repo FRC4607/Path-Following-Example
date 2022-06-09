@@ -35,11 +35,13 @@ public final class Constants {
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
             trackWidth_Meters);
 
-            public static final double kPDriveVel = 2.9025 * 2;
+        public static final double kPDriveVel = 2.9025 * 2;
     }
 
     public static final class AutoConstants {
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
+        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
     }
 }

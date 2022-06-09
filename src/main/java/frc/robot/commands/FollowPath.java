@@ -54,8 +54,8 @@ public class FollowPath extends CommandBase {
                 DrivetrainConstants.ka_VoltSecondsSquaredPerMeters),
             DrivetrainConstants.kDriveKinematics,
             m_drivetrainSubsystem::getWheelSpeeds,
-            new PIDController(0, 0, 0),
-            new PIDController(0, 0, 0),
+            new PIDController(DrivetrainConstants.kPDriveVel, 0, 0),
+            new PIDController(DrivetrainConstants.kPDriveVel, 0, 0),
             m_drivetrainSubsystem::tankDriveVolts,
             m_drivetrainSubsystem);
         CommandScheduler.getInstance().schedule(command);
