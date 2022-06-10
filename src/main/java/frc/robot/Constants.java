@@ -5,7 +5,7 @@
 package frc.robot;
 
 // import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-// import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -22,26 +22,46 @@ public final class Constants {
         public static final int frontRightMoterID = 3;
         public static final int backRightMoterID = 4;
         
-        /* public static final int leftEncoderID = 2;
+        /*
+        public static final int leftEncoderID = 2;
         public static final int rightEncoderID = 5;
         public static final double sensorCoefficient = (Math.PI * Units.inchesToMeters(6)) / 4096;
+        */
 
-        public static final int pidgeonID = 6; */
+        /*
+        public static final int pidgeonID = 6; 
+        */
+        
 
-        /* public static final double ks_Volts = 0.65288;
+        /*
+        // Feed Forward, Found useing SysId
+        public static final double ks_Volts = 0.65288;
         public static final double kv_VoltSecondsPerMeters = 2.5016;
         public static final double ka_VoltSecondsSquaredPerMeters = 0.38331;
-        public static final double trackWidth_Meters = 0.7036911491;
-        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
-            trackWidth_Meters); */
+        */
 
-        // public static final double kPDriveVel = 2.9025 * 2;
+        // Trackwidth might be able to be found in SysId, but we use a custom command ({@link commands.CalibrateTrackwidth})
+        /*
+         public static final double trackWidth_Meters = 0.7036911491;
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+            trackWidth_Meters); 
+        */
+
+        /*
+        // PID
+         public static final double kPDriveVel = 2.9025 * 2;
+        */
     }
 
-    /* public static final class AutoConstants {
+    public static final class AutoConstants {
+        /*
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
+        */
+        
+        /*
         public static final double kMaxSpeedMetersPerSecond = 1;
         public static final double kMaxAccelerationMetersPerSecondSquared = .5;
-    } */
+        */
+    }
 }

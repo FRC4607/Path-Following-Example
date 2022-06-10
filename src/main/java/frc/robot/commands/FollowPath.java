@@ -1,34 +1,31 @@
 package frc.robot.commands;
 
-// import java.nio.file.Path;
-// import edu.wpi.first.math.trajectory.Trajectory;
-// import edu.wpi.first.math.trajectory.TrajectoryUtil;
-// import edu.wpi.first.wpilibj2.command.CommandBase;
-// import edu.wpi.first.wpilibj2.command.CommandScheduler;
-// import edu.wpi.first.wpilibj2.command.RamseteCommand;
-// import frc.robot.Constants.AutoConstants;
-// import frc.robot.Constants.DrivetrainConstants;
-// import frc.robot.subsystems.DrivetrainSubsystem;
-// import edu.wpi.first.math.controller.PIDController;
-// import edu.wpi.first.math.controller.RamseteController;
-// import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import java.nio.file.Path;
+import edu.wpi.first.math.trajectory.*;
+import edu.wpi.first.wpilibj2.command.*;
+import frc.robot.Constants.*;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import edu.wpi.first.math.controller.*;
 
-// public class FollowPath extends CommandBase {
+public class FollowPath extends CommandBase {
 
-    // private final Trajectory m_trajectory;
-
-    // private final DrivetrainSubsystem m_drivetrainSubsystem;
-    
-    // private RamseteCommand command;
+    /*
+    private final Trajectory m_trajectory;
+    private final DrivetrainSubsystem m_drivetrainSubsystem;
+    private RamseteCommand command;
+    */
 
     // Reset odometry to the starting pose of the trajectory.
 
+    // Two Constructers One for in code Generation
     /* public FollowPath(DrivetrainSubsystem drivetrainSubsystem, Trajectory trajectory) {
         m_trajectory = trajectory;
         m_drivetrainSubsystem = drivetrainSubsystem;
     } */
 
-    /* public FollowPath(DrivetrainSubsystem drivetrain, Path pathweaverJSON) {
+    // and the other for External tools like Pathwever of Path Planner
+    /* 
+    public FollowPath(DrivetrainSubsystem drivetrain, Path pathweaverJSON) {
         m_drivetrainSubsystem = drivetrain;
         Trajectory trajectory;
         try {
@@ -38,11 +35,11 @@ package frc.robot.commands;
             trajectory = null;
         }
         m_trajectory = trajectory;
-    } */
+    }*/
 
-    /* @Override
+    @Override
     public void initialize() {
-        m_drivetrainSubsystem.setBrakeMode(true);
+        /* m_drivetrainSubsystem.setBrakeMode(true);
         command = null;
         m_drivetrainSubsystem.resetOdometry(m_trajectory.getInitialPose());
         command = new RamseteCommand(
@@ -59,19 +56,21 @@ package frc.robot.commands;
             new PIDController(DrivetrainConstants.kPDriveVel, 0, 0),
             m_drivetrainSubsystem::tankDriveVolts,
             m_drivetrainSubsystem);
-        CommandScheduler.getInstance().schedule(command);
-    } */
+        command.schedule(); */
+    }
 
     /* @Override
     public void end(boolean interrupted) {
         if (interrupted) {
             m_drivetrainSubsystem.tankDriveVolts(0.0, 0.0);
         }
-        m_drivetrainSubsystem.setBrakeMode(false);
+        else {
+            m_drivetrainSubsystem.setBrakeMode(false);
+        }
     } */
 
     /* @Override
     public boolean isFinished() {
         return command.isFinished();
     } */
-// }
+}

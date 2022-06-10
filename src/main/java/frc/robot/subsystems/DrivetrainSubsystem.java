@@ -3,18 +3,13 @@ package frc.robot.subsystems;
 // import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
-// import com.ctre.phoenix.sensors.CANCoderConfiguration;
-// import com.ctre.phoenix.sensors.SensorInitializationStrategy;
-// import com.ctre.phoenix.sensors.WPI_CANCoder;
-// import com.ctre.phoenix.sensors.WPI_PigeonIMU;
+import com.ctre.phoenix.sensors.*;
+import com.ctre.phoenix.sensors.*;
 
-// import edu.wpi.first.math.geometry.Pose2d;
-// import edu.wpi.first.math.geometry.Rotation2d;
-// import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-// import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -52,10 +47,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         TalonFXConfiguration motorConfig = new TalonFXConfiguration();
         motorConfig.supplyCurrLimit = new SupplyCurrentLimitConfiguration(true, 35, 40, 0.2);
         motorConfig.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
+        /* 
+        // Not required for Path Following
         motorConfig.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
-        /* motorConfig.remoteFilter0.remoteSensorDeviceID = DrivetrainConstants.leftEncoderID;
+        motorConfig.remoteFilter0.remoteSensorDeviceID = DrivetrainConstants.leftEncoderID;
         motorConfig.remoteFilter1.remoteSensorSource = RemoteSensorSource.CANCoder;
-        motorConfig.remoteFilter1.remoteSensorDeviceID = DrivetrainConstants.rightEncoderID; */
+        motorConfig.remoteFilter1.remoteSensorDeviceID = DrivetrainConstants.rightEncoderID;
+        */
 
         mFrontLeftMotor.configFactoryDefault();
         mFrontLeftMotor.configAllSettings(motorConfig);
@@ -80,7 +78,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
         mDifferentialDrive = new DifferentialDrive(mLeftMotorControllerGroup, mRightMotorControllerGroup);
 
 
-        /* CANCoderConfiguration encoderConfig = new CANCoderConfiguration();
+        /* 
+        // Can Encoder Configuration
+        CANCoderConfiguration encoderConfig = new CANCoderConfiguration();
         encoderConfig = new CANCoderConfiguration();
         encoderConfig.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
         encoderConfig.initializationStrategy = SensorInitializationStrategy.BootToZero;
@@ -96,18 +96,26 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         mRightEncoder.configFactoryDefault();
         mRightEncoder.configAllSettings(encoderConfig);
+        */
 
-
+        /*
+        // Gyro Configuration
         mPigeonIMU = new WPI_PigeonIMU(DrivetrainConstants.pidgeonID);
         mPigeonIMU.setFusedHeading(0);
+        */
 
-        m_odometry = new DifferentialDriveOdometry(getRotation2d()); */
+        /*
+        // Odometry
+        m_odometry = new DifferentialDriveOdometry(getRotation2d());
+        */
     }
 
-    /* @Override
+    @Override
     public void periodic() {
+        /*
         m_odometry.update(getRotation2d(), getLeftEncoderDistance(), getRightEncoderDistance());
-    } */
+       */
+    }
 
     /**
      * Returns the current distance the left encoder has traveled in meters.
@@ -170,6 +178,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     /* public void zeroHeading() {
         mPigeonIMU.setFusedHeading(0);
     } */
+
 
     /* public Rotation2d getRotation2d() {
         // Both angles CCW positive
