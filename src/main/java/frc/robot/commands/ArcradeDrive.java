@@ -11,10 +11,12 @@ public class ArcradeDrive extends CommandBase {
     public ArcradeDrive(DrivetrainSubsystem drivetrainSubsystem, XboxController driver) {
         mDrivetrainSubsystem = drivetrainSubsystem;
         mDriver = driver;
+
+        addRequirements(mDrivetrainSubsystem);
     }
 
     @Override
     public void execute() {
-        mDrivetrainSubsystem.arcadeDrive(mDriver.getLeftY(), mDriver.getLeftX());
+        mDrivetrainSubsystem.arcadeDrive(-mDriver.getLeftY(), mDriver.getLeftX() * 0.5);
     }
 }

@@ -7,9 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -33,6 +35,11 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    mChooser.setDefaultOption("No Auto", new InstantCommand(() -> {}));
+    mChooser.addOption("PathPlanner Path", new FollowPath(mDrivetrainSubsystem, Paths.testPath));
+    mChooser.addOption("Generated Path", new FollowPath(mDrivetrainSubsystem, Paths.exampleTrajectory));
+    mChooser.addOption("Trackwidth Calibration", new CalibrateTrackwidth(mDrivetrainSubsystem));
+    SmartDashboard.putData("Auto Chooser", mChooser);
     mDrivetrainSubsystem.setDefaultCommand(new ArcradeDrive(mDrivetrainSubsystem, mDriver));
     // Configure the button bindings
     configureButtonBindings();
