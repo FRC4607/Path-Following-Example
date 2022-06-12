@@ -36,9 +36,9 @@ public class RobotContainer {
    */
   public RobotContainer() {
     mChooser.setDefaultOption("No Auto", new InstantCommand(() -> {}));
-    mChooser.addOption("PathPlanner Path", new FollowPath(mDrivetrainSubsystem, Paths.testPath));
-    mChooser.addOption("Generated Path", new FollowPath(mDrivetrainSubsystem, Paths.exampleTrajectory));
-    mChooser.addOption("Trackwidth Calibration", new CalibrateTrackwidth(mDrivetrainSubsystem));
+    // mChooser.addOption("PathPlanner Path", new FollowPath(mDrivetrainSubsystem, Paths.testPath));
+    // mChooser.addOption("Generated Path", new FollowPath(mDrivetrainSubsystem, Paths.exampleTrajectory));
+    // mChooser.addOption("Trackwidth Calibration", new CalibrateTrackwidth(mDrivetrainSubsystem));
     SmartDashboard.putData("Auto Chooser", mChooser);
     mDrivetrainSubsystem.setDefaultCommand(new ArcradeDrive(mDrivetrainSubsystem, mDriver));
     // Configure the button bindings
