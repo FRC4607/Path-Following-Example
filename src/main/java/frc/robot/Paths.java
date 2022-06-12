@@ -16,6 +16,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DrivetrainConstants;
 
 public class Paths {
+    // Generated in Pathplaner https://github.com/mjansen4857/pathplanner/releases/tag/v2022.1.1
     public static final Path testPath = Filesystem.getDeployDirectory().toPath().resolve("./pathplanner/generatedJSON/PathPlanner_Test.wpilib.json");
 
     private static final DifferentialDriveVoltageConstraint autoVoltageConstraint =

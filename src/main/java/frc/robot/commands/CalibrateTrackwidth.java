@@ -8,7 +8,9 @@ public class CalibrateTrackwidth extends CommandBase {
     private final DrivetrainSubsystem m_drivetrainSubsystem;
     private double m_startingRotation;
     private double m_endingRoatition;
-
+    /**
+     * Displays the Calcualted trackwidth when stoped
+     */
     public CalibrateTrackwidth(DrivetrainSubsystem drivetrainSubsystem) {
         m_drivetrainSubsystem = drivetrainSubsystem;
         addRequirements(m_drivetrainSubsystem);

@@ -28,19 +28,26 @@ public final class Constants {
 
         public static final int pidgeonID = 6;
 
+        // Feed forward Constants
         public static final double ks_Volts = 0.65288;
         public static final double kv_VoltSecondsPerMeters = 2.5016;
         public static final double ka_VoltSecondsSquaredPerMeters = 0.38331;
+
+        // Trackwidth might be able to be found in SysId, but we use a custom command ({@link commands.CalibrateTrackwidth})
         public static final double trackWidth_Meters = 0.7036911491;
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
             trackWidth_Meters);
 
+        // PID constants
         public static final double kPDriveVel = 2.9025 * 2;
     }
 
     public static final class AutoConstants {
+        // Ramset Controler Constants
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
+
+        // Inline Path Generation
         public static final double kMaxSpeedMetersPerSecond = 1;
         public static final double kMaxAccelerationMetersPerSecondSquared = .5;
     }

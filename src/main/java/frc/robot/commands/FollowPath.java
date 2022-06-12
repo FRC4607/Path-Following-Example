@@ -18,16 +18,16 @@ public class FollowPath extends CommandBase {
     private final Trajectory m_trajectory;
 
     private final DrivetrainSubsystem m_drivetrainSubsystem;
-    
+
     private RamseteCommand command;
 
-    // Reset odometry to the starting pose of the trajectory.
-
+    // Two Constructers One for in code Generation
     public FollowPath(DrivetrainSubsystem drivetrainSubsystem, Trajectory trajectory) {
         m_trajectory = trajectory;
         m_drivetrainSubsystem = drivetrainSubsystem;
     }
 
+    // and the other for External tools like Pathwever of Path Planner
     public FollowPath(DrivetrainSubsystem drivetrain, Path pathweaverJSON) {
         m_drivetrainSubsystem = drivetrain;
         Trajectory trajectory;
@@ -44,21 +44,22 @@ public class FollowPath extends CommandBase {
     public void initialize() {
         m_drivetrainSubsystem.setBrakeMode(true);
         command = null;
+        // Reset odometry to the starting pose of the trajectory.
         m_drivetrainSubsystem.resetOdometry(m_trajectory.getInitialPose());
         command = new RamseteCommand(
-            m_trajectory,
-            m_drivetrainSubsystem::getPose,
-            new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
-            new SimpleMotorFeedforward(
-                DrivetrainConstants.ks_Volts,
-                DrivetrainConstants.kv_VoltSecondsPerMeters,
-                DrivetrainConstants.ka_VoltSecondsSquaredPerMeters),
-            DrivetrainConstants.kDriveKinematics,
-            m_drivetrainSubsystem::getWheelSpeeds,
-            new PIDController(DrivetrainConstants.kPDriveVel, 0, 0),
-            new PIDController(DrivetrainConstants.kPDriveVel, 0, 0),
-            m_drivetrainSubsystem::tankDriveVolts,
-            m_drivetrainSubsystem);
+                m_trajectory,
+                m_drivetrainSubsystem::getPose,
+                new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+                new SimpleMotorFeedforward(
+                        DrivetrainConstants.ks_Volts,
+                        DrivetrainConstants.kv_VoltSecondsPerMeters,
+                        DrivetrainConstants.ka_VoltSecondsSquaredPerMeters),
+                DrivetrainConstants.kDriveKinematics,
+                m_drivetrainSubsystem::getWheelSpeeds,
+                new PIDController(DrivetrainConstants.kPDriveVel, 0, 0),
+                new PIDController(DrivetrainConstants.kPDriveVel, 0, 0),
+                m_drivetrainSubsystem::tankDriveVolts,
+                m_drivetrainSubsystem);
         CommandScheduler.getInstance().schedule(command);
     }
 
